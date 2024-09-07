@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dataTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:textSize="18sp"
+        android:text="@string/no_data" />
+
+    <Button
+        android:id="@+id/receiveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/get_data" />
+
+    <EditText
+        android:id="@+id/dataEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="58dp"
+        android:layout_marginTop="58dp"
+        android:hint="@string/put_data_here" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/save_data" />
+
+</LinearLayout>
