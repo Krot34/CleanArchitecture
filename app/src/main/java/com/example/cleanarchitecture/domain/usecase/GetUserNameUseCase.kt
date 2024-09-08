@@ -1,10 +1,11 @@
 package com.example.cleanarchitecture.domain.usecase
 
 import com.example.cleanarchitecture.domain.models.UserName
+import com.example.cleanarchitecture.domain.repository.UserRepository
 
-class GetUserNameUseCase {
+class GetUserNameUseCase(private val userRepository: UserRepository) {
 
     fun execute(): UserName {
-        return UserName(firstName = "Default name", lastName = "Default surname")
+        return userRepository.getName()
     }
 }
