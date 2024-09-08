@@ -6,18 +6,26 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.example.cleanarchitecture.R
-import com.example.cleanarchitecture.data.repository.UserRepositoryImpl
-import com.example.cleanarchitecture.data.storage.sharedprefs.SharedPrefUserStorage
-import com.example.cleanarchitecture.domain.models.SaveUserNameParam
-import com.example.cleanarchitecture.domain.models.UserName
-import com.example.cleanarchitecture.domain.usecase.GetUserNameUseCase
-import com.example.cleanarchitecture.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : Activity() {
 
-    private val userRepository by lazy(LazyThreadSafetyMode.NONE) { UserRepositoryImpl(userStorage = SharedPrefUserStorage(context = applicationContext)) }
-    private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) { GetUserNameUseCase(userRepository = userRepository) }
-    private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) { SaveUserNameUseCase(userRepository = userRepository) }
+    private val userRepository by lazy(LazyThreadSafetyMode.NONE) {
+        com.example.cleanarchitecture.data.repository.UserRepositoryImpl(
+            userStorage = com.example.cleanarchitecture.data.storage.sharedprefs.SharedPrefUserStorage(
+                context = applicationContext
+            )
+        )
+    }
+    private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        com.example.cleanarchitecture.domain.usecase.GetUserNameUseCase(
+            userRepository = userRepository
+        )
+    }
+    private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        com.example.cleanarchitecture.domain.usecase.SaveUserNameUseCase(
+            userRepository = userRepository
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +38,14 @@ class MainActivity : Activity() {
 
         sendButton.setOnClickListener {
             val text = dataEditView.text.toString()
-            val params = SaveUserNameParam(name = text)
+            val params = com.example.cleanarchitecture.domain.models.SaveUserNameParam(name = text)
             val result: Boolean = saveUserNameUseCase.execute(param = params)
             dataTextView.text = "Save result = $result"
         }
 
         receiveButton.setOnClickListener {
-            val userName : UserName = getUserNameUseCase.execute()
+            val userName: com.example.cleanarchitecture.domain.models.UserName =
+                getUserNameUseCase.execute()
             dataTextView.text = "${userName.firstName} ${userName.lastName}"
         }
     }
